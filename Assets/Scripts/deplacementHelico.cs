@@ -14,6 +14,8 @@ public class deplacementHelico : MonoBehaviour
     public GameObject refHeliceAvant;
     private Rigidbody rigidHelico;
 
+    public bool finJeu;
+
     // Start is called before the first frame update
     void Start()
     {
