@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class tourneHelis : MonoBehaviour
 {
-    public Vector3 vitesseTourne;
+    public Vector3 vitesseHelis;
 
     public float compteur;
     private bool moteurEnMarche;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,7 @@ public class tourneHelis : MonoBehaviour
             moteurEnMarche = !moteurEnMarche;
         }
         //compteur+= 1 * Time.deltaTime;
-        transform.Rotate(vitesseTourne * Time.deltaTime);
+        transform.Rotate(vitesseHelis * Time.deltaTime);
     }
 }
 
