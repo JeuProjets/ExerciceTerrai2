@@ -7,7 +7,7 @@ public class tourneHelis : MonoBehaviour
     public Vector3 vitesseHelis;
 
     public float compteur;
-    private bool moteurEnMarche;
+    public bool moteurEnMarche;
 
     // Start is called before the first frame update
     void Start()

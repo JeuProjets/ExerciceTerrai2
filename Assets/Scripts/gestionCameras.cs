@@ -38,9 +38,10 @@ public class gestionCameras : MonoBehaviour
             ActiverCamera(CameraSurveillance);
 
         }
+        
 
     }
-    void ActiverCamera(GameObject CameraChoisie)
+    public void ActiverCamera(GameObject CameraChoisie)
     {
         CameraFPS.SetActive(false);
         CameraFixe.SetActive(false);
