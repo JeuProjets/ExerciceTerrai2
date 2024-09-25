@@ -22,7 +22,8 @@ public class deplacementHelico : MonoBehaviour
 
     public bool finJeu;
 
-    AudioSource sonHelico;
+    public AudioClip sonBidon;
+    public AudioSource sonHelico;
 
     // Start is called before the first frame update
     void Start()
@@ -39,13 +40,13 @@ public class deplacementHelico : MonoBehaviour
         {
             if (refHeliceAvant.GetComponent<tourneObjet>().vitesseRotation.y > 34)
             {
-                if (sonHelico.isPlaying == false)
-                {
-                    sonHelico.Play();
+                //if (sonHelico.isPlaying == false)
+                //{
+                    //sonHelico.Play();
                     // sonHelico.volume = refHeliceAvant.GetComponent<tourneObjet>().vitesseRotation;
 
 
-                }
+                //}
                 rigidHelico.useGravity = false;
 
                 float forceRotation = Input.GetAxis("Horizontal") * vitesseTourne;
@@ -98,6 +99,17 @@ public class deplacementHelico : MonoBehaviour
             gestionnaireCameras.GetComponent<gestionCameras>().ActiverCamera(cameraDistanceFixe);
             Invoke("relancerScene", 8f);
 
+
+        }
+
+    }
+
+    void OnTriggerEnter(Collider infoCollision)
+    {
+        if (infoCollision.gameObject.tag == "bidon")
+        {
+            infoCollision.gameObject.SetActive(false);
+            sonHelico.PlayOneShot(sonBidon);
 
         }
 
