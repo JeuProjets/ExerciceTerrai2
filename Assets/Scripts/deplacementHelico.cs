@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class deplacementHelico : MonoBehaviour
 {
@@ -28,6 +30,9 @@ public class deplacementHelico : MonoBehaviour
     public AudioClip sonBidon;
     public AudioSource sonHelico;
 
+    public float quantiteEssence;
+    public Image barreBlanche;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,36 +46,46 @@ public class deplacementHelico : MonoBehaviour
     {
         if (finJeu == false)
         {
-            if (refHeliceAvant.GetComponent<tourneObjet>().vitesseRotation.y > 34)
+            if (refHeliceAvant.GetComponent<tourneObjet>().moteurEnMarche == true)
             {
-                //if (sonHelico.isPlaying == false)
-                //{
-                //sonHelico.Play();
-                // sonHelico.volume = refHeliceAvant.GetComponent<tourneObjet>().vitesseRotation;
+                GestionEssence();
 
-
-                //}
-                rigidHelico.useGravity = false;
-
-                float forceRotation = Input.GetAxis("Horizontal") * vitesseTourne;
-                rigidHelico.AddRelativeTorque(0, forceRotation, 0);
-
-                if (Input.GetKey(KeyCode.E) && vitesseAvant < vitesseAvantMax)
+            
+                if (refHeliceAvant.GetComponent<tourneObjet>().vitesseRotation.y > 34)
                 {
-                    vitesseAvant += 100;
+                    //if (sonHelico.isPlaying == false)
+                    //{
+                    //sonHelico.Play();
+                    // sonHelico.volume = refHeliceAvant.GetComponent<tourneObjet>().vitesseRotation;
+
+
+                    //}
+                    rigidHelico.useGravity = false;
+
+                    float forceRotation = Input.GetAxis("Horizontal") * vitesseTourne;
+                    rigidHelico.AddRelativeTorque(0, forceRotation, 0);
+
+                    if (Input.GetKey(KeyCode.E) && vitesseAvant < vitesseAvantMax)
+                    {
+                        vitesseAvant += 100;
+                    }
+                    if (Input.GetKey(KeyCode.Q) && vitesseAvant >= 100)
+                    {
+                        vitesseAvant -= 100;
+                    }
+
+
+                    float forceMonte = Input.GetAxis("Vertical") * vitesseMonte;
+                    GetComponent<Rigidbody>().AddRelativeForce(0f, forceMonte, vitesseAvant);
+
+                    transform.localEulerAngles = new Vector3(0f, transform.localEulerAngles.y, 0f);
+
                 }
-                if (Input.GetKey(KeyCode.Q) && vitesseAvant >= 100)
+                else
                 {
-                    vitesseAvant -= 100;
+                    rigidHelico.useGravity = true;
                 }
-
-
-                float forceMonte = Input.GetAxis("Vertical") * vitesseMonte;
-                GetComponent<Rigidbody>().AddRelativeForce(0f, forceMonte, vitesseAvant);
-
-                transform.localEulerAngles = new Vector3(0f, transform.localEulerAngles.y, 0f);
             }
-
             else
             {
                 rigidHelico.useGravity = true;
@@ -78,6 +93,16 @@ public class deplacementHelico : MonoBehaviour
         }
 
 
+    }
+
+    private void GestionEssence()
+    {
+        quantiteEssence -= (1 * Time.deltaTime)/120;
+        barreBlanche.fillAmount = quantiteEssence;
+        if(barreBlanche.fillAmount <= 0)
+        {
+            ExploserHelico();
+        }
     }
 
     private void OnCollisionEnter(Collision collisionHelico)

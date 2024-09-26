@@ -9,6 +9,7 @@ public class Compteur2 : MonoBehaviour
     public int valCompteur = 3;
 
     public GameObject helicoptere;
+    public GameObject boutonDebut;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,12 +29,17 @@ public class Compteur2 : MonoBehaviour
 
     void Comptage()
     {
-        valCompteur--;
-        textCompteur.text = valCompteur.ToString();
-
-        if (valCompteur == 0)
+      //https://docs.unity3d.com/ScriptReference/GameObject-activeSelf.html
+        if (!boutonDebut.activeSelf)
         {
-            helicoptere.GetComponent<deplacementHelico>().ExploserHelico();
+            valCompteur--;
+            textCompteur.text = valCompteur.ToString();
+
+            if (valCompteur == 0)
+            {
+                helicoptere.GetComponent<deplacementHelico>().ExploserHelico();
+            }
         }
+        
     }
 }
