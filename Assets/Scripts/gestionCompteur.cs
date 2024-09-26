@@ -1,25 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class gestionCompteur : MonoBehaviour
+using UnityEngine.UI;
+using TMPro;
+public class Compteur2 : MonoBehaviour
 {
-    public GameObject textCompteur;
-    public int leCompteur;
+    public TextMeshProUGUI textCompteur;
+    public int valCompteur = 3;
 
-    public void ActivationCompteur()
+    public GameObject helicoptere;
+    // Start is called before the first frame update
+    void Start()
     {
-        textCompteur.SetActive(true);
-        StartCoroutine(decompte());
+        InvokeRepeating("Comptage", 3f, 1f);
     }
 
-    IEnumerator decompte()
+    // Update is called once per frame
+    void Update()
     {
-        while (true)
+        if(valCompteur == 0)
         {
-            yield return new WaitForSeconds(1f);
-            leCompteur--;
-            
+            textCompteur.gameObject.SetActive(false);
+
+            CancelInvoke();
+        }
+    }
+
+    void Comptage()
+    {
+        valCompteur--;
+        textCompteur.text = valCompteur.ToString();
+
+        if (valCompteur == 0)
+        {
+            helicoptere.GetComponent<deplacementHelico>().ExploserHelico();
         }
     }
 }

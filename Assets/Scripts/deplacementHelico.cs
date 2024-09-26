@@ -12,6 +12,9 @@ public class deplacementHelico : MonoBehaviour
     public float forceAcceleration;
 
 
+
+
+
     public GameObject refHeliceAvant;
     public GameObject refHeliceArriere;
     public GameObject refExplosion;
@@ -30,20 +33,20 @@ public class deplacementHelico : MonoBehaviour
     {
         rigidHelico = GetComponent<Rigidbody>();
         sonHelico = GetComponent<AudioSource>();
-        
+
     }
 
-   
+
     void FixedUpdate()
     {
-        if(finJeu == false)
+        if (finJeu == false)
         {
             if (refHeliceAvant.GetComponent<tourneObjet>().vitesseRotation.y > 34)
             {
                 //if (sonHelico.isPlaying == false)
                 //{
-                    //sonHelico.Play();
-                    // sonHelico.volume = refHeliceAvant.GetComponent<tourneObjet>().vitesseRotation;
+                //sonHelico.Play();
+                // sonHelico.volume = refHeliceAvant.GetComponent<tourneObjet>().vitesseRotation;
 
 
                 //}
@@ -53,7 +56,7 @@ public class deplacementHelico : MonoBehaviour
                 rigidHelico.AddRelativeTorque(0, forceRotation, 0);
 
                 if (Input.GetKey(KeyCode.E) && vitesseAvant < vitesseAvantMax)
-                {    
+                {
                     vitesseAvant += 100;
                 }
                 if (Input.GetKey(KeyCode.Q) && vitesseAvant >= 100)
@@ -73,40 +76,48 @@ public class deplacementHelico : MonoBehaviour
                 rigidHelico.useGravity = true;
             }
         }
-        
+
 
     }
 
     private void OnCollisionEnter(Collision collisionHelico)
     {
-        
+
         if (collisionHelico.gameObject.name == "Terrain")
         {
+            ExploserHelico();
             print("collision");
             finJeu = true;
-            refExplosion.SetActive(true);
-            lumiereExplosion.SetActive(true);
             
-            rigidHelico.useGravity = true;
-            rigidHelico.angularDrag = 1;
-            rigidHelico.drag = 1/2;
-
-            refHeliceAvant.GetComponent<tourneObjet>().moteurEnMarche = false;
-            refHeliceArriere.GetComponent<tourneObjet>().moteurEnMarche = false;
-
             cameraDistanceFixe.SetActive(true);
 
             gestionnaireCameras.GetComponent<gestionCameras>().ActiverCamera(cameraDistanceFixe);
             Invoke("relancerScene", 8f);
 
-
         }
+
+
+
+    }
+
+    public void ExploserHelico()
+    {
+        refExplosion.SetActive(true);
+        lumiereExplosion.SetActive(true);
+
+        rigidHelico.useGravity = true;
+        rigidHelico.angularDrag = 1;
+        rigidHelico.drag = 1 / 2;
+
+        refHeliceAvant.GetComponent<tourneObjet>().moteurEnMarche = false;
+        refHeliceArriere.GetComponent<tourneObjet>().moteurEnMarche = false;
 
     }
 
     void OnTriggerEnter(Collider infoCollision)
     {
         if (infoCollision.gameObject.tag == "bidon")
+
         {
             infoCollision.gameObject.SetActive(false);
             sonHelico.PlayOneShot(sonBidon);
@@ -120,8 +131,3 @@ public class deplacementHelico : MonoBehaviour
         SceneManager.LoadScene("deplacementHelico");
     }
 }
-
-
-
-
-
