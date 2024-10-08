@@ -23,6 +23,7 @@ public class deplacementHelico : MonoBehaviour
     public GameObject lumiereExplosion;
     public GameObject cameraDistanceFixe;
     public GameObject gestionnaireCameras;
+    public GameObject drone;
     private Rigidbody rigidHelico;
 
     public bool finJeu;
@@ -119,6 +120,12 @@ public class deplacementHelico : MonoBehaviour
             gestionnaireCameras.GetComponent<gestionCameras>().ActiverCamera(cameraDistanceFixe);
             Invoke("relancerScene", 8f);
 
+        }
+
+        if (collisionHelico.drone)
+        {
+            ExploserHelico();
+            finJeu = true;
         }
 
 

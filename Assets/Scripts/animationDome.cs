@@ -7,6 +7,7 @@ public class animationDome : MonoBehaviour
     private AudioSource audioDome;
     public AudioClip sonDome;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,11 +19,11 @@ public class animationDome : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.O))
         {
-            GetComponent<Animator>().SetBool("BoolOuverture", true);
+            GetComponent<Animator>().SetBool("boolOuverture", true);
         }
         if (Input.GetKey(KeyCode.F))
         {
-            GetComponent<Animator>().SetBool("BoolOuverture", false);
+            GetComponent<Animator>().SetBool("boolFermeture", true);
         }
     }
 
