@@ -20,12 +20,16 @@ public class animationDome : MonoBehaviour
         if (Input.GetKey(KeyCode.O))
         {
             GetComponent<Animator>().SetBool("boolOuverture", true);
+            GetComponent<Animator>().SetBool("boolFermeture", false);
         }
         if (Input.GetKey(KeyCode.F))
         {
             GetComponent<Animator>().SetBool("boolFermeture", true);
+            GetComponent<Animator>().SetBool("boolOuverture", false);
+
         }
     }
+
 
     public void joueSonDome()
     {

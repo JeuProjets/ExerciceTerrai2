@@ -23,7 +23,6 @@ public class deplacementHelico : MonoBehaviour
     public GameObject lumiereExplosion;
     public GameObject cameraDistanceFixe;
     public GameObject gestionnaireCameras;
-    public GameObject drone;
     private Rigidbody rigidHelico;
 
     public bool finJeu;
@@ -122,10 +121,11 @@ public class deplacementHelico : MonoBehaviour
 
         }
 
-        if (collisionHelico.drone)
+        if (collisionHelico.gameObject.tag == "drone" || collisionHelico.gameObject.name == "Dome")
         {
             ExploserHelico();
             finJeu = true;
+            print("hello");
         }
 
 
